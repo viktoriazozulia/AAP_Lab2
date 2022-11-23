@@ -1,0 +1,75 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+void print(int** s, int y, int w); 
+void sortArr(int**, int);  
+int** create(int, int); 
+
+int main()
+{
+    int n;
+    cin >> n;
+    int size = n + 15;
+    int** no = create(size, size);
+    srand(time(NULL));
+    print(no, size, size);
+    cout << endl;
+    sortArr(no, size);
+    print(no, size, size);
+}
+void print(int** s, int y, int w)
+{
+    for (int i = 0; i < y; i++)
+    {
+        for (int j = 0; j < w; j++)
+        {
+            cout << setw(3) << s[i][j];
+            
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+int** create(int m, int v)
+{
+    int** arr = new int*[m];
+    for (int i = 0; i < m; i++)
+    {
+        arr[i] = new int[v];
+    }
+    for (int i = 0; i != m; i++)
+    {
+        for (int j = 0; j != v; j++)
+        {
+            arr[i][j] = -m + rand() % (abs(v)*2 + 1);
+        }
+    }
+    return arr;
+}
+void sortArr(int** arr, int n)
+{
+    int temp;
+    for (int j = 0; j != n; j++)
+    {
+        if ((j + 1) % 2 == 0)
+        {
+            for (int i = 0; i != n; i++)
+            {
+                int pos = i;
+                temp = arr[i][j];
+                for (int k = i + 1; k != n; k++)
+                {
+                    if (arr[k][j] > temp)
+                    {
+                        temp = arr[k][j];
+                        pos = k;
+                    }
+                }
+                arr[pos][j] = arr[i][j];
+                arr[i][j] = temp;
+
+            }
+
+        }
+    }
+}
